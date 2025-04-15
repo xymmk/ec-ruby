@@ -19,7 +19,8 @@
             "source.fixAll": "explicit"
           },
           "[ruby]": {
-            "editor.defaultFormatter": "Shopify.ruby-lsp",
+            // 遅いので、一旦無効化
+            // "editor.defaultFormatter": "Shopify.ruby-lsp",
             "editor.formatOnSave": true
           },
           "ruby.lint": {

@@ -146,3 +146,32 @@ group :development, :test do
     ]
   }
 ```
+
+### bootstrapインストール
+
+
+> 参考: https://qiita.com/arata0520/items/9e34b96f035dce75f6cd
+
+```ruby
+# bundle install
+gem "dartsass-rails"
+gem "bootstrap"
+bundle install
+
+# application.scss
++ @import "bootstrap"
+
+# importmap.rb
+pin "bootstrap", to: "bootstrap.min.js", preload: true
+pin "@popperjs/core", to: "popper.js", preload: true
+
+# application.js
+import "@hotwired/turbo-rails"
+import "@popperjs/core"
+import "bootstrap"
+import "controllers"
+
+# startup
+rails dartsass:watch
+rails s -b 0.0.0.0
+```

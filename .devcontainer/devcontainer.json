@@ -1,0 +1,42 @@
+{
+    "name": "ruby",
+    "dockerComposeFile": "docker-compose.yml",
+    "service": "ec-ruby",
+    "workspaceFolder": "/app", 
+    "customizations": {
+      "vscode": {
+        "extensions": [
+            "Shopify.ruby-extensions-pack",
+            "KoichiSasada.vscode-rdbg",
+            "Hridoy.rails-snippets",
+            "jdforsythe.add-new-line-to-files",
+            "cweijan.vscode-postgresql-client2"
+        ],
+        "settings": {
+          "files.insertFinalNewline": true,
+          "terminal.integrated.shell.linux": "/bin/bash",
+          "editor.codeActionsOnSave": {
+            "source.fixAll": "explicit"
+          },
+          "[ruby]": {
+            "editor.defaultFormatter": "Shopify.ruby-lsp",
+            "editor.formatOnSave": true
+          },
+          "ruby.lint": {
+            "rubocop": true
+          },
+          "ruby.format": "rubocop", // Use rubocop for formatting
+          "editor.formatOnSave": true // Ensure formatting runs on save
+        }
+      }
+    },
+    "features": {
+      "docker-from-docker": {
+        "version": "latest",
+        "dockerDashComposeVersion": "v2"
+      },
+      "ghcr.io/devcontainers/features/github-cli:1": {
+        "version": "latest"
+      }
+    }
+  }

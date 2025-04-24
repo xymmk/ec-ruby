@@ -12,6 +12,9 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
 
-  get "authors" =>  "author/authors#index"
-  get "tasks" =>  "task/tasks#index"
+  get "tasks" => "task/tasks#index"
+
+  namespace :user do
+    resources :users, only: [ :create, :new ]
+  end
 end

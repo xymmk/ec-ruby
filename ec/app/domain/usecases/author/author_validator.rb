@@ -3,7 +3,7 @@ class Usecases::Author::AuthorValidator
     errors = []
     errors << validate_name(author)
     errors << validate_birth_date(author)
-    errors.compact 
+    errors.compact
   end
 
   private

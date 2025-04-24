@@ -36,7 +36,7 @@ rails generate model モデル名
 
 ### migrate実行
 
-rails db:migrate 
+rails db:migrate
 
 ### migrate削除
 

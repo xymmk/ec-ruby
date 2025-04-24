@@ -26,14 +26,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_08_182301) do
     t.integer "status", default: 0
     t.datetime "create_date", null: false
     t.datetime "update_date", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "users", primary_key: "user_id", force: :cascade do |t|
     t.string "name", limit: 500, null: false
     t.string "password", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "birth_date"
+    t.datetime "false"
+    t.datetime "created", null: false
+    t.datetime "updated", null: false
   end
 end

@@ -1,5 +1,3 @@
-require "rails_helper" 
-
 RSpec.describe Usecases::Author::AuthorValidator do
   author_validator = Usecases::Author::AuthorValidator.new
   let(:valid_author) { Entities::Author::AuthorEntity.new("John Doe", "2000-01-01 00:00:00") }

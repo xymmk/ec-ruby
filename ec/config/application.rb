@@ -27,9 +27,9 @@ module Ec
     config.active_record.default_timezone = :local
     # add custom directories to autoload paths
     config.autoload_paths += %W[#{config.root}/app/infra]
-    
+
     config.autoload_paths += %W[#{config.root}/app/domain]
-    
+
     config.autoload_paths += %W[#{config.root}/app/services]
   end
 end

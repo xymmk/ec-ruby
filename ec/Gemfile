@@ -75,3 +75,5 @@ gem "ruby-lsp", "~> 0.23.13", group: :development, require: false
 
 gem "dartsass-rails"
 gem "bootstrap"
+
+gem "bcrypt"

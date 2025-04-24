@@ -8,7 +8,6 @@ class CreateTask < ActiveRecord::Migration[7.0]
       t.integer :status, default: 0
       t.datetime :create_date, null: false
       t.datetime :update_date, null: false
-      t.timestamps
     end
   end
 

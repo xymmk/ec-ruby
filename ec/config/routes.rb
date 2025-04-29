@@ -15,6 +15,9 @@ Rails.application.routes.draw do
   get "tasks" => "task/tasks#index"
 
   namespace :user do
-    resources :users, only: [ :create, :new ]
+    get "new", to: "users#new", as: :new_user
+    post "create", to: "users#create", as: :create_user
+    get "login", to: "users#login", as: :login_user
+    post "auth", to: "users#auth", as: :auth_user
   end
 end

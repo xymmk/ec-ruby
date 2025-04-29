@@ -443,6 +443,7 @@ DEPENDENCIES
   propshaft
   puma (>= 5.0)
   rails (~> 8.0.2)
+  rdoc
   rspec-rails
   rubocop (~> 1.75)
   rubocop-rails-omakase

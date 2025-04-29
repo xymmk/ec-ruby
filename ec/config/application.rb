@@ -31,5 +31,7 @@ module Ec
     config.autoload_paths += %W[#{config.root}/app/domain]
 
     config.autoload_paths += %W[#{config.root}/app/services]
+
+    config.autoload_paths += %W[#{config.root}/app/errors]
   end
 end

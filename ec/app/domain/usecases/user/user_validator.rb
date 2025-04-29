@@ -1,5 +1,10 @@
 require 'active_model'
+# ユーザーのバリデーションを行うクラス
 class Usecases::User::UserValidator
+
+  # バリエーションチェックを行うメソッド
+  # @param user [Entities::User::UserEntity] ユーザーエンティティ
+  # @return [Hash] エラーがあればエラーメッセージを含むハッシュ、なければ空のハッシュ
   def validate(user)
     @errors = {}
     validate_name(user)

@@ -1,10 +1,10 @@
-class Usecases::User::FindUser
+class Usecases::User::GetUser
     def initialize(user_repository)
         @user_repository = user_repository
     end
 
-    def find_user_by_name(name)
-        user = @user_repository.find_user_by_name(name)
+    def get_user_by_name(name)
+        user = @user_repository.get_user_by_name(name)
         if user
             { success: true, user: user }
         else
@@ -12,8 +12,8 @@ class Usecases::User::FindUser
         end
     end
     
-    def find_user_by_id(user_id)
-        user = @user_repository.find_user(user_id)
+    def get_user_by_id(user_id)
+        user = @user_repository.get_user(user_id)
         if user
             { success: true, user: user }
         else

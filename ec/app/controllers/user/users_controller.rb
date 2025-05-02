@@ -1,4 +1,5 @@
 class User::UsersController < ApplicationController
+  skip_before_action :user_signed_in?, only: [:new, :create, :login, :auth]
   # ユーザー登録画面を表示するアクション
   def new
   end
@@ -66,14 +67,25 @@ class User::UsersController < ApplicationController
     if user.nil?
       # 認証失敗
       flash[:error] = "ユーザー名またはパスワードが間違っています。"
-      Rails.logger.debug "ログインに失敗しました。flash:#{flash}"
-      redirect_to "/user/login", flash: { error: flash[:error] }
+      Rails.logger.debug "ログインに失敗しました。flash:#{flash[:error]}"
+      render :login, status: :unprocessable_entity
       return
     end
     # 認証成功
     flash[:success] = "ログインに成功しました。"
     Rails.logger.debug "ログインに成功しました: flash:#{flash}"
     session[:user_id] = user.user_id
+    session[:user_name] = user.name
+    redirect_to "/task/list"
+  end
+
+  def logout
+    # セッションをクリアしてログアウト
+    session[:user_id] = nil
+    session[:user_name] = nil
+    flash[:success] = "ログアウトしました。"
+    Rails.logger.debug "flash:#{flash}"
+    redirect_to "/user/login"
   end
 
 end

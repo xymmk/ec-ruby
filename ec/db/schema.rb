@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_08_182301) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_29_114300) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
-  create_table "authors", primary_key: "user_id", force: :cascade do |t|
-    t.string "name", limit: 500, null: false
-    t.datetime "birth_date", null: false
+  create_table "task_user", force: :cascade do |t|
+    t.bigint "task_id", null: false
+    t.bigint "user_id", null: false
   end
 
   create_table "tasks", primary_key: "task_id", force: :cascade do |t|
@@ -24,8 +24,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_08_182301) do
     t.string "name", null: false
     t.string "description", null: false
     t.integer "status", default: 0
-    t.datetime "create_date", null: false
-    t.datetime "update_date", null: false
+    t.datetime "created", null: false
+    t.datetime "updated", null: false
   end
 
   create_table "users", primary_key: "user_id", force: :cascade do |t|
@@ -36,4 +36,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_08_182301) do
     t.datetime "created", null: false
     t.datetime "updated", null: false
   end
+
+  add_foreign_key "task_user", "tasks", primary_key: "task_id"
+  add_foreign_key "task_user", "users", primary_key: "user_id"
 end

@@ -12,12 +12,22 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
 
-  get "tasks" => "task/tasks#index"
-
+  # ユーザーリソースルーター
   namespace :user do
     get "new", to: "users#new", as: :new_user
     post "create", to: "users#create", as: :create_user
     get "login", to: "users#login", as: :login_user
     post "auth", to: "users#auth", as: :auth_user
+    get "logout", to: "users#logout", as: :logout_user
+  end
+
+  # タスクリソースルーター
+  namespace :task do
+    get "list", to: "tasks#index", as: :tasks
+    get "new", to: "tasks#new", as: :new_task
+    post "create", to: "tasks#create", as: :create_task
+    get "edit/:task_id", to: "tasks#edit", as: :edit_task
+    post "update/:task_id", to: "tasks#update", as: :update_task
+    delete "delete/:task_id", to: "tasks#delete", as: :delete_task
   end
 end

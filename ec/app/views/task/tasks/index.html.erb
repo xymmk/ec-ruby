@@ -1,30 +1,71 @@
-<h1 class="text-center my-4">タスク一覧</h1>
+<div class="container mt-4">
 
-<div class="alert alert-primary" role="alert">
-  This is a primary alert—check it out!
-</div>
+       <div class="d-flex justify-content-end mb-3">
+            <div class="btn-group">
+                <a class="btn btn-primary me-2" href="/task/new" role="button">新規タスク</a>
+                <a class="btn btn-secondary" href="/user/logout" role="button">ログアウト</a>
+            </div>
+        </div>
 
-<div class="table-responsive">
-  <table class="table table-striped table-bordered">
-    <thead class="thead-dark">
-      <tr>
-        <th scope="col">タスク名</th>
-        <th scope="col">担当者</th>
-        <th scope="col">優先度</th>
-        <th scope="col">作成日</th>
-        <th scope="col">更新日</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @tasks.each do |task| %>
-        <tr>
-          <td><%= task.name %></td>
-          <td><%= task.owner %></td>
-          <td><%= task.priority %></td>
-          <td><%= task.created %></td>
-          <td><%= task.updated %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
+        <div class="mb-3">
+            <p class="text-end">ログイン中のユーザー: <strong><%= @user_name %></strong></p>
+        </div>
+
+        <% if @tasks.present? %>
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead class="table">
+                    <tr>
+                        <th>番号</th>
+                        <th>タスク名</th>
+                        <th>内容</th>
+                        <th>優先度</th>
+                        <th>状態</th>
+                        <th>作成日時</th>
+                        <th>更新日時</th>
+                        <th>更新</th>
+                        <th>削除</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% @tasks.each do |task| %>
+                        <tr>
+                            <td><%= task.task_id %></td>
+                            <td><%= truncate(task.name, length: 20) %></td>
+                            <td><%= truncate(task.description, length: 20) %></td>
+                            <td><%= task.priority.to_name %></td>
+                            <td><%= task.status.to_name %></td>
+                            <td><%= task.created.strftime('%Y-%m-%d %H:%M:%S') %></td>
+                            <td><%= task.updated.strftime('%Y-%m-%d %H:%M:%S') %></td>
+                            <td>
+                                <a class="btn btn-primary me-2" href="/task/edit/<%= task.task_id %>" role="button">更新</a>
+                            </td>
+                            <td>
+                                <a class="btn btn-danger me-2" 
+                                data-action="click->task--delete-task#delete" 
+                                data-controller="task--delete-task"
+                                data-task--delete-task-task-id-value="<%= task.task_id %>"
+                                data-action="click->task--delete-task#delete" 
+                                role="button">削除</a>
+                            </td>
+                        </tr>
+                    <% end %>
+                </tbody>
+            </table>
+        </div>
+
+        <nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+  </ul>
+</nav>
+        <% else %>
+            <p>タスクを見つかりません。</p>
+        <% end %>
+    </div>
+
+

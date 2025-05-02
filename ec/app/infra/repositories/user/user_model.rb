@@ -13,7 +13,7 @@ class Repositories::User::UserModel < ApplicationRecord
         false
     end
 
-    def self.find_by_name(name)
+    def self.get_by_name(name)
         sql = "SELECT * FROM users WHERE name = ?"
         query_result = ActiveRecord::Base.connection.execute(ActiveRecord::Base.sanitize_sql_array([ sql, name ]))
         if query_result.any?
@@ -31,7 +31,7 @@ class Repositories::User::UserModel < ApplicationRecord
         end
     end
 
-    def self.find_by_id(user_id)
+    def self.get_by_id(user_id)
         sql = "SELECT * FROM users WHERE id = ?"
         query_result = ActiveRecord::Base.connection.execute(ActiveRecord::Base.sanitize_sql_array([ sql, user_id ]))
         if query_result.any?

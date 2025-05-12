@@ -4,18 +4,19 @@ class Task::TasksController < ApplicationController
 
     get_user_tasks_service = Task::GetUserTasksService.new
 
-    page = params[:page] ||= 1
-    
-    per_page = params[:per_page] ||= 10
+    @page = params[:page].to_i > 0 ? params[:page].to_i : 1
+    @per_page = params[:per_page].to_i > 0 ? params[:per_page].to_i : 1
 
-    priority_sort = params[:priority] ||= Usecases::Task::GetTasksCriteria::DESC
-    created_sort = params[:created] ||= Usecases::Task::GetTasksCriteria::DESC
-    updated_sort = params[:updated] ||= Usecases::Task::GetTasksCriteria::DESC
+    @priority_sort = params[:priority] ||= Usecases::Task::GetTasksCriteria::DESC
+    @created_sort = params[:created] ||= Usecases::Task::GetTasksCriteria::DESC
+    @updated_sort = params[:updated] ||= Usecases::Task::GetTasksCriteria::DESC
     @user_name = session[:user_name]
-    tasks_hash = get_user_tasks_service.get_tasks(user_id, page, per_page, priority_sort, created_sort, updated_sort)
+    tasks_hash = get_user_tasks_service.get_tasks(user_id, @page, @per_page, @priority_sort, @created_sort, @updated_sort)
     @tasks = tasks_hash[:tasks]
     @total = tasks_hash[:total]
-    @total_pages = tasks_hash[:total_pages]
+    @total_pages = (@total / @per_page).ceil
+    Rails.logger.debug("total: #{@total}, per_page: #{@per_page}, total_pages: #{@total_pages}")
+    @max_page_button_number = 3
   end
 
   def new
@@ -58,6 +59,4 @@ class Task::TasksController < ApplicationController
     delete_task_service = Task::DeleteTaskService.new
     delete_task_service.delete_task(task_id)
   end
-
-
 end

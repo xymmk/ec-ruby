@@ -1,5 +1,4 @@
 class Repositories::Task::TaskRepository
-
     def create_task(task)
         Repositories::Task::TaskModel.create(task)
     end
@@ -23,5 +22,4 @@ class Repositories::Task::TaskRepository
     def get_task_by_id(task_id)
         Repositories::Task::TaskModel.get_task_by_id(task_id)
     end
-
 end

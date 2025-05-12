@@ -2,7 +2,7 @@ class Usecases::Task::DeleteTask
     def initialize(task_repository)
         @task_repository = task_repository
     end
-    
+
     # タスクを削除する
     # @param task_id [Integer] タスクID
     def execute(task_id)

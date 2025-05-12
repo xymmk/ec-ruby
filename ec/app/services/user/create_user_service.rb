@@ -11,14 +11,14 @@ class User::CreateUserService
     # @param password [String] パスワード
     # @param birth_date [Date] 生年月日
     # @return [Hash] 成功した場合は{ success: true, errors: [] }、
-    #                失敗した場合は{ success: false, errors: ["エラーメッセージ"] 
+    #                失敗した場合は{ success: false, errors: ["エラーメッセージ"]
     def create_user(name, password, birth_date)
         # ユーザー名は登録済か確認
         if is_exist_user?(name)
             error = { name: "ユーザー名はすでに使用されています。" }
             raise User::CannotCreateException.new(error)
         end
-        
+
         user = Entities::User::UserEntity.new.create_new_user(name, password, birth_date)
         @create_user.execute(user)
     end
@@ -32,5 +32,4 @@ class User::CreateUserService
         get_user_result = @get_user.get_user_by_name(name)
         get_user_result[:success]
     end
-
 end

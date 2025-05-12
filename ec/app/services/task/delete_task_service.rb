@@ -3,7 +3,7 @@ class Task::DeleteTaskService
         task_repository = Rails.application.config.repositories[:task_repository]
         @delete_task = Usecases::Task::DeleteTask.new(task_repository)
     end
-    
+
     def delete_task(task_id)
         begin
             task_id_int = task_id.to_i

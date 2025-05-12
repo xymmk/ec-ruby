@@ -2,7 +2,7 @@ class Entities::Task::TaskStatus
     NOT_STARTED = 3.freeze
     DOING = 2.freeze
     COMPLETED = 1.freeze
-    TASK_TYPES = [NOT_STARTED, DOING, COMPLETED].freeze
+    TASK_TYPES = [ NOT_STARTED, DOING, COMPLETED ].freeze
 
     def initialize(value)
         unless TASK_TYPES.include?(value)
@@ -13,11 +13,11 @@ class Entities::Task::TaskStatus
 
     def to_name
         if @value == NOT_STARTED
-            return "NOT_STARTED"
+            "NOT_STARTED"
         elsif @value == DOING
-            return "DOING"
+            "DOING"
         elsif @value == COMPLETED
-            return "COMPLETED"
+            "COMPLETED"
         end
     end
 

@@ -11,7 +11,7 @@ class Entities::Task::TaskEntity
   # - updated: 更新日時
   attr_accessor :task_id, :priority,
                 :name, :description,
-                :status, :user_id, 
+                :status, :user_id,
                 :created, :updated
 
   # タスクエンティティの初期化
@@ -27,19 +27,19 @@ class Entities::Task::TaskEntity
     set_new_task_user_id(user_id)
     @created = Time.now
     @updated = Time.now
-    return self
+    self
   end
 
   def update_task(priority, name, description, status)
     if @task_id.nil?
       raise Task::CannotCreateException.new("タスクIDは必須です")
-    end    
+    end
     set_new_task_priority(priority)
     set_new_task_name(name)
     set_new_task_description(description)
     set_new_task_status(status)
     @updated = Time.now
-    return self
+    self
   end
 
   private

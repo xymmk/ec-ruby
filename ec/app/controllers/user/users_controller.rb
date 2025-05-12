@@ -1,5 +1,5 @@
 class User::UsersController < ApplicationController
-  skip_before_action :user_signed_in?, only: [:new, :create, :login, :auth]
+  skip_before_action :user_signed_in?, only: [ :new, :create, :login, :auth ]
   # ユーザー登録画面を表示するアクション
   def new
   end
@@ -22,15 +22,15 @@ class User::UsersController < ApplicationController
       render :new, status: :unprocessable_entity
       return
     end
-    
+
+    # リピートパスワードとパスワードの一致確認
     if password != repeat_password
       errors[:repeat_password] = "パスワードとパスワードは一致しません。"
       flash[:errors] = errors
       Rails.logger.debug "error:#{errors}"
       render :new, status: :unprocessable_entity
-      return
     end
-    
+
     # ユーザー登録処理を実行
     begin
       create_user_service = User::CreateUserService.new
@@ -38,14 +38,12 @@ class User::UsersController < ApplicationController
       flash[:success] = "ユーザー登録が完了しました。"
       Rails.logger.debug "flash:#{flash}"
       redirect_to "/user/new", flash: { success: flash[:success] }
-      return
     rescue User::CannotCreateException => e
       # ユーザー登録に失敗した場合、エラーメッセージを取得
       errors = e.validate_errors
       flash[:errors] = errors
       Rails.logger.debug "error:#{flash[:errors]}"
       render :new, status: :unprocessable_entity
-      return
     end
   end
 
@@ -63,13 +61,12 @@ class User::UsersController < ApplicationController
 
     auth_user_service = User::AuthUserService.new
     user = auth_user_service.user_authenticated?(name, password)
-    
+
     if user.nil?
       # 認証失敗
       flash[:error] = "ユーザー名またはパスワードが間違っています。"
       Rails.logger.debug "ログインに失敗しました。flash:#{flash[:error]}"
       render :login, status: :unprocessable_entity
-      return
     end
     # 認証成功
     flash[:success] = "ログインに成功しました。"
@@ -87,5 +84,4 @@ class User::UsersController < ApplicationController
     Rails.logger.debug "flash:#{flash}"
     redirect_to "/user/login"
   end
-
 end

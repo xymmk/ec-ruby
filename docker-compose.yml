@@ -9,7 +9,7 @@ services:
     environment:
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "postgres"
-      POSTGRES_DB: "book-manager"
+      POSTGRES_DB: "task-manager"
     networks:
       ruby-network:
         ipv4_address: 172.20.0.5
@@ -22,7 +22,7 @@ services:
     build: .
     volumes:
       - ./:/app
-    entrypoint: ["tail", "-f", "/dev/null"]
+    entrypoint: [ "tail", "-f", "/dev/null" ]
     networks:
       ruby-network:
         ipv4_address: 172.20.0.3
@@ -33,4 +33,3 @@ networks:
     ipam:
       config:
         - subnet: 172.20.0.0/16
-

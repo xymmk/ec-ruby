@@ -1,4 +1,4 @@
-require 'bcrypt'
+require "bcrypt"
 # ユーザー認証サービス
 class User::AuthUserService
     def initialize
@@ -20,7 +20,7 @@ class User::AuthUserService
         # パスワードのハッシュを取得
         stored_password_hash = get_user_result[:user].password
         bcrypt_password = BCrypt::Password.new(stored_password_hash)
-        
+
         Rails.logger.debug "get_user_result:#{bcrypt_password}"
         Rails.logger.debug "password: #{password}"
 

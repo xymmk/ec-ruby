@@ -54,13 +54,53 @@
             </table>
         </div>
 
-        <nav aria-label="Page navigation example">
-  <ul class="pagination">
-    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item"><a class="page-link" href="#">2</a></li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
-    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+<nav aria-label="Page navigation example">
+ 
+  <ul class="pagination justify-content-center">
+    <% if @page > 1 %>
+        <li class="page-item">
+            <a class="page-link" href="/task/list?page=<%= @page - 1 %>&per_page=<%= @per_page %>&priorty=<%= @priority_sort %>&created=<%= @created_sort %>&updated=<%= @updated_sort %>">Previous</a>
+        </li>
+    <% else %>
+        <li class="page-item disabled">
+            <a class="page-link">Previous</a>
+        </li>
+    <% end %>
+    <% if @page + (@max_page_button_number - 1) < @total_pages %>
+        <% for i in @page..@page + @max_page_button_number - 1 %>
+            <% if @page == i %>
+                <li class="page-item active" aria-current="page">
+                    <a class="page-link" href="/task/list?page=<%= i %>&per_page=<%= @per_page %>&priorty=<%= @priority_sort %>&created=<%= @created_sort %>&updated=<%= @updated_sort %>"><%= i %></a>
+                </li>
+            <% else %>
+                <li class="page-item">
+                    <a class="page-link" href="/task/list?page=<%= i %>&per_page=<%= @per_page %>&priorty=<%= @priority_sort %>&created=<%= @created_sort %>&updated=<%= @updated_sort %>"><%= i %></a>
+                </li>
+            <% end %>
+        <% end %>
+    <% elsif @page + (@max_page_button_number - 1) >= @total_pages %>
+        <% for i in @page..@total_pages %>
+            <% if @page == i %>
+                <li class="page-item active" aria-current="page">
+                    <a class="page-link" href="/task/list?page=<%= i %>&per_page=<%= @per_page %>&priorty=<%= @priority %>&created=<%= @created_sort %>&updated=<%= @updated_sort %>"><%= i %></a>
+                </li>
+            <% else %>
+                <li class="page-item">
+                    <a class="page-link" href="/task/list?page=<%= i %>&per_page=<%= @per_page %>&priorty=<%= @priority %>&created=<%= @created_sort %>&updated=<%= @updated_sort %>"><%= i %></a>
+                </li>
+            <% end %>
+        <% end %>
+    <% end %>
+
+    <% if @page < @total_pages %>
+        <li class="page-item">
+            <a class="page-link" href="/task/list?page=<%= @page + 1 %>&per_page=<%= @per_page %>&priorty=<%= @priority_sort %>&created=<%= @created_sort %>&updated=<%= @updated_sort %>">Next</a>
+        </li>
+    <% else %>
+        <li class="page-item disabled">
+            <a class="page-link">Next</a>
+        </li>
+    <% end %>
   </ul>
 </nav>
         <% else %>

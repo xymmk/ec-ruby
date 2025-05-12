@@ -12,6 +12,5 @@ class ApplicationController < ActionController::Base
     unless session[:user_id]
       redirect_to "/user/login", alert: "ログインしてください。"
     end
-    return
   end
 end

@@ -1,13 +1,12 @@
 class Usecases::Task::GetTasksCriteria
-    attr_reader :page, :per_page, :user_id, 
+    attr_reader :page, :per_page, :user_id,
     :priority_sort, :created_sort, :updated_sort
 
     ASC = "ASC".freeze
     DESC = "DESC".freeze
-    SORT_TYPES = [ASC, DESC].freeze
+    SORT_TYPES = [ ASC, DESC ].freeze
 
-    
-    def initialize()
+    def initialize
         @priority_sort = DESC
         @created_sort = DESC
         @updated_sort = DESC
@@ -37,7 +36,7 @@ class Usecases::Task::GetTasksCriteria
         end
         @user_id = user_id
     end
-    
+
     def set_page(page)
         if page.nil? || page < 1
             raise Task::GetTasksException, "ページは1以上の整数でなければなりません。"
@@ -54,7 +53,7 @@ class Usecases::Task::GetTasksCriteria
         end
         @per_page = per_page
     end
-    
+
     private
 
     def sort_type_included?(sort_type)

@@ -11,7 +11,7 @@ class Usecases::User::GetUser
             { success: false, user: nil }
         end
     end
-    
+
     def get_user_by_id(user_id)
         user = @user_repository.get_user(user_id)
         if user

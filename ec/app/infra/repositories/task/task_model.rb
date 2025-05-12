@@ -9,16 +9,16 @@ class Repositories::Task::TaskModel < ApplicationRecord
 
 
         # SQLクエリを生成
-        sql = "SELECT * FROM tasks 
-               JOIN TASK_USER 
-               ON tasks.task_id = task_user.task_id 
+        sql = "SELECT * FROM tasks
+               JOIN TASK_USER
+               ON tasks.task_id = task_user.task_id
                WHERE task_user.user_id = ?
                ORDER BY priority #{priority_sort},
                         created #{created_sort},
                         updated #{updated_sort}
                LIMIT ?
                OFFSET ?
-        " 
+        "
         query_result = ActiveRecord::Base.connection.execute(
             ActiveRecord::Base.sanitize_sql_array([
               sql, user_id, per_page, (page - 1) * per_page
@@ -28,15 +28,15 @@ class Repositories::Task::TaskModel < ApplicationRecord
         if query_result.any?
             query_result.map do |queried_task|
                 task = Entities::Task::TaskEntity.new()
-                task.task_id = queried_task['task_id']
-                task.user_id = queried_task['user_id']
-                task.priority = Entities::Task::TaskPriority.new(queried_task['priority'])
-                task.name = queried_task['name']
-                task.description = queried_task['description']
-                task.status = Entities::Task::TaskStatus.new(queried_task['status'])
+                task.task_id = queried_task["task_id"]
+                task.user_id = queried_task["user_id"]
+                task.priority = Entities::Task::TaskPriority.new(queried_task["priority"])
+                task.name = queried_task["name"]
+                task.description = queried_task["description"]
+                task.status = Entities::Task::TaskStatus.new(queried_task["status"])
                 task.user_id = user_id
-                task.created = queried_task['created']
-                task.updated = queried_task['updated']
+                task.created = queried_task["created"]
+                task.updated = queried_task["updated"]
                 task
             end
         else
@@ -46,15 +46,15 @@ class Repositories::Task::TaskModel < ApplicationRecord
 
     def self.count_tasks_with_user_id(user_id)
         # SQLクエリを生成
-        sql = "SELECT count(*) FROM tasks 
-               JOIN TASK_USER 
-               ON tasks.task_id = task_user.task_id 
+        sql = "SELECT count(*) FROM tasks
+               JOIN TASK_USER
+               ON tasks.task_id = task_user.task_id
                WHERE task_user.user_id = ?
-        "       
-        query_result = ActiveRecord::Base.connection.execute(ActiveRecord::Base.sanitize_sql_array([sql, user_id]))
+        "
+        query_result = ActiveRecord::Base.connection.execute(ActiveRecord::Base.sanitize_sql_array([ sql, user_id ]))
 
         if query_result.any?
-            query_result.first['count'].to_i
+            query_result.first["count"].to_i
         else
             0
         end
@@ -76,7 +76,6 @@ class Repositories::Task::TaskModel < ApplicationRecord
             sql = "INSERT INTO task_user (user_id, task_id) VALUES (?, ?)"
             ActiveRecord::Base.connection.execute(ActiveRecord::Base.sanitize_sql_array([ sql, task.user_id,
             task_id ]))
-
         end
         true
     rescue Exception => e
@@ -113,22 +112,22 @@ class Repositories::Task::TaskModel < ApplicationRecord
     def self.get_task_by_id(task_id)
         # SQLクエリを生成
         sql = "SELECT * FROM tasks
-               JOIN TASK_USER 
-               ON tasks.task_id = task_user.task_id 
+               JOIN TASK_USER
+               ON tasks.task_id = task_user.task_id
                WHERE tasks.task_id = ?"
-        query_result = ActiveRecord::Base.connection.execute(ActiveRecord::Base.sanitize_sql_array([sql, task_id]))
+        query_result = ActiveRecord::Base.connection.execute(ActiveRecord::Base.sanitize_sql_array([ sql, task_id ]))
 
         queried_task = query_result.first
         if queried_task.any?
-            task = Entities::Task::TaskEntity.new()                
-            task.task_id = queried_task['task_id']
-            task.user_id = queried_task['user_id']
-            task.priority = Entities::Task::TaskPriority.new(queried_task['priority'])
-            task.name = queried_task['name']
-            task.description = queried_task['description']
-            task.status = Entities::Task::TaskStatus.new(queried_task['status'])
-            task.created = queried_task['created']
-            task.updated = queried_task['updated']
+            task = Entities::Task::TaskEntity.new()
+            task.task_id = queried_task["task_id"]
+            task.user_id = queried_task["user_id"]
+            task.priority = Entities::Task::TaskPriority.new(queried_task["priority"])
+            task.name = queried_task["name"]
+            task.description = queried_task["description"]
+            task.status = Entities::Task::TaskStatus.new(queried_task["status"])
+            task.created = queried_task["created"]
+            task.updated = queried_task["updated"]
             task
         else
             nil

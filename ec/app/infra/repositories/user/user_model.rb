@@ -19,12 +19,12 @@ class Repositories::User::UserModel < ApplicationRecord
         if query_result.any?
             queried_user = query_result.first
             user = Entities::User::UserEntity.new()
-            user.user_id = queried_user['user_id']
-            user.name = queried_user['name']
-            user.password = queried_user['password']
-            user.birth_date = queried_user['birth_date']
-            user.created = queried_user['created']
-            user.updated = queried_user['updated']
+            user.user_id = queried_user["user_id"]
+            user.name = queried_user["name"]
+            user.password = queried_user["password"]
+            user.birth_date = queried_user["birth_date"]
+            user.created = queried_user["created"]
+            user.updated = queried_user["updated"]
             user
         else
             nil
@@ -37,16 +37,15 @@ class Repositories::User::UserModel < ApplicationRecord
         if query_result.any?
             queried_user = query_result.first
             user = Entities::User::UserEntity.new()
-            user.user_id = queried_user['user_id']
-            user.name = queried_user['name']
-            user.password = queried_user['password']
-            user.birth_date = queried_user['birth_date']
-            user.created = queried_user['created']
-            user.updated = queried_user['updated']
+            user.user_id = queried_user["user_id"]
+            user.name = queried_user["name"]
+            user.password = queried_user["password"]
+            user.birth_date = queried_user["birth_date"]
+            user.created = queried_user["created"]
+            user.updated = queried_user["updated"]
             user
         else
             nil
         end
     end
-
 end

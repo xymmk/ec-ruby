@@ -4,13 +4,12 @@
 class User::CannotCreateException < StandardError
   attr_accessor :validate_errors
 
-  def initialize(args)
-    case args
-    when String
-      super(args)
-    when Hash
-      @validate_errors = args
+    def initialize(args)
+      case args
+      when String
+        super(args)
+      when Hash
+        @validate_errors = args
+      end
     end
-  end
-
 end

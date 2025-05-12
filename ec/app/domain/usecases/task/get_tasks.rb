@@ -20,7 +20,7 @@ class Usecases::Task::GetTasks
       Rails.logger.error("user_idはnilです。")
       raise Task::GetTasksException, "user_idはnilにできません。"
     end
-    count = @task_repository.count_tasks_with_user_id(user_id)
+    count = @task_repository.count_tasks_with_user_id(user_id).to_f
   end
 
   # タスクIDに紐づくタスクを取得する

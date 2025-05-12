@@ -7,12 +7,12 @@
 # - birth_date: 生年月日
 # - created: 作成日時
 # - updated: 更新日時
-require 'bcrypt'
+require "bcrypt"
 class Entities::User::UserEntity
     attr_accessor :user_id, :name, :password, :birth_date, :task_id, :created, :updated
 
     BIRTH_DATE_REGEX = /\A\d{4}-\d{2}-\d{2}\z/.freeze
-                  
+
     # ユーザーエンティティの初期化
     # タスクIDは空の配列で初期化
     def initialize
@@ -25,7 +25,7 @@ class Entities::User::UserEntity
         set_new_user_birth_date(birth_date)
         @created = Time.now
         @updated = Time.now
-        return self
+        self
     end
 
     private
@@ -67,6 +67,4 @@ class Entities::User::UserEntity
     def encrypt_password(password)
         BCrypt::Password.create(password)
     end
-
-
 end

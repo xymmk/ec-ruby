@@ -17,15 +17,14 @@ class Task::GetUserTasksService
     begin
       tasks = @get_tasks.get_tasks(get_tasks_criteria)
       total_tasks = @get_tasks.count_tasks_with_user_id(user_id)
-      total_pages = (total_tasks / per_page).ceil
 
-      return { tasks: tasks, total_tasks: total_tasks, total_pages: total_pages }
+      { tasks: tasks, total: total_tasks }
     rescue Task::GetTasksException => e
       Rails.logger.error("タスクを取得できませんでした。 (user_id: #{user_id}): #{e.message}")
-      return { tasks: [], total_tasks: 0, total_pages: 0 }
+      { tasks: [], total: 0 }
     rescue StandardError => e
       Rails.logger.error("予期しないエラーが発生しました (user_id: #{user_id}): #{e.message}")
-      return { tasks: [], total_tasks: 0, total_pages: 0 }
+      { tasks: [], total: 0 }
     end
   end
 
@@ -34,10 +33,10 @@ class Task::GetUserTasksService
       @get_tasks.get_task_by_id(task_id)
     rescue Task::GetTasksException => e
       Rails.logger.error("タスクを取得できませんでした。 (task_id: #{task_id}): #{e.message}")
-      return nil
+      nil
     rescue StandardError => e
       Rails.logger.error("予期しないエラーが発生しました (task_id: #{task_id}): #{e.message}")
-      return nil
+      nil
     end
   end
 end

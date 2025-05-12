@@ -3,7 +3,7 @@ class Entities::Task::TaskPriority
     HIGH = 3.freeze
     MEDIUM = 2.freeze
     LOW = 1.freeze
-    PRIORITY_TYPES = [HIGH, MEDIUM, LOW].freeze
+    PRIORITY_TYPES = [ HIGH, MEDIUM, LOW ].freeze
 
     def initialize(value)
         unless PRIORITY_TYPES.include?(value)
@@ -14,11 +14,11 @@ class Entities::Task::TaskPriority
 
     def to_name
         if @value == HIGH
-            return "HIGH"
+            "HIGH"
         elsif @value == MEDIUM
-            return "MEDIUM"
+            "MEDIUM"
         elsif @value == LOW
-            return "LOW"
+            "LOW"
         end
     end
 
